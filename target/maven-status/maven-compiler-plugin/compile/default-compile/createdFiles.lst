@@ -1,0 +1,3 @@
+com/unmsm/panamericanos/entity/User.class
+com/unmsm/panamericanos/servlet/UserServlet.class
+com/unmsm/panamericanos/dao/UserDao.class
