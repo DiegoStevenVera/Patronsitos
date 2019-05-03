@@ -26,7 +26,7 @@ public class UserDao {
     
     private static MongoClient getConnection() {
         int port_no = 27017;
-        String url = "192.168.1.38";
+        String url = "192.168.1.37";
  
         MongoClient mongoClntObj = new MongoClient(url, port_no);
         return mongoClntObj;
