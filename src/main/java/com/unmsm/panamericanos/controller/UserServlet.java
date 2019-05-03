@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unmsm.panamericanos.servlet;
+package com.unmsm.panamericanos.controller;
 
-import com.unmsm.panamericanos.dao.UserDao;
-import com.unmsm.panamericanos.entity.User;
+import com.unmsm.panamericanos.dao.UserDaoImpl;
+import com.unmsm.panamericanos.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author diego
  */
 public class UserServlet extends HttpServlet {
+    UserDaoImpl userdao = new UserDaoImpl();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,7 +52,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("message", "Please enter login email and password");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
-            User isUserFound = UserDao.login(param1, param2);
+            User isUserFound = userdao.login(param1, param2);
             if(isUserFound != null) {               
                 request.getSession().setAttribute("user", isUserFound);
                 request.getRequestDispatcher("/User/welcome.jsp").forward(request, response);
@@ -71,7 +72,7 @@ public class UserServlet extends HttpServlet {
         String photo = "";
         String message = "";
         try {
-            UserDao.insert(new User(email, password, name, last_name, photo));
+            userdao.insert(new User(email, password, name, last_name, photo));
             message = "registered user";
         } catch(Exception e) {
             message = "Error: " + e;
