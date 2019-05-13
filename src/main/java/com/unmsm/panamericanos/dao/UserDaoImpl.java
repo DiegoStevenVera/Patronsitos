@@ -14,7 +14,8 @@ import com.unmsm.panamericanos.dao.repository.IRepositoryUser;
 import java.util.ArrayList;
 import java.util.List;
 import com.unmsm.panamericanos.model.User;
-import com.unmsm.panamericanos.utils.Cast;
+import com.unmsm.panamericanos.utils.cast.CastUser;
+import com.unmsm.panamericanos.utils.cast.ICast;
 import java.util.Iterator;
 import org.bson.Document;
 /**
@@ -23,11 +24,12 @@ import org.bson.Document;
  */
 public class UserDaoImpl implements IRepositoryUser, IReadUser {
     private static String db_collection_name = "user";
+    private ICast<User> cast = new CastUser();
     
     @Override
     public void insert(User user) {
         MongoCollection col = Connection.getConnection().getCollection(db_collection_name);
-        col.insertOne(Cast.mapUser(user));
+        col.insertOne(cast.getMap(user));
     }
     
     @Override
