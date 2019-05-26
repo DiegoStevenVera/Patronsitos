@@ -17,7 +17,7 @@ public class Connection {
     private static Connection connection = new Connection();
     private static String db_name = "patrones";
     private static int port_no = 27017;
-    private static String url = "192.168.1.37";
+    private static String url = "127.0.0.1";
     
     private Connection() {}
     

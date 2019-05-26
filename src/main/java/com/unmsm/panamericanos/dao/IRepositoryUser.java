@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unmsm.panamericanos.dao.read;
+package com.unmsm.panamericanos.dao;
 
 import com.unmsm.panamericanos.model.User;
 
@@ -11,6 +11,6 @@ import com.unmsm.panamericanos.model.User;
  *
  * @author diego
  */
-public interface IReadUser {
-    public User login(String email, String password);
+public interface IRepositoryUser extends IReadUser {
+    public void insert(User user);
 }

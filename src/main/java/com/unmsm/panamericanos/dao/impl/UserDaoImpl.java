@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unmsm.panamericanos.dao;
+package com.unmsm.panamericanos.dao.impl;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.unmsm.panamericanos.connection.Connection;
-import com.unmsm.panamericanos.dao.read.IReadUser;
-import com.unmsm.panamericanos.dao.repository.IRepositoryUser;
+import com.unmsm.panamericanos.dao.IReadUser;
+import com.unmsm.panamericanos.dao.IRepositoryUser;
 import java.util.ArrayList;
 import java.util.List;
 import com.unmsm.panamericanos.model.User;
@@ -22,9 +22,11 @@ import org.bson.Document;
  *
  * @author diego
  */
-public class UserDaoImpl implements IRepositoryUser, IReadUser {
+public class UserDaoImpl implements IRepositoryUser {
     private static String db_collection_name = "user";
     private ICast<User> cast = new CastUser();
+    
+    public UserDaoImpl() {}
     
     @Override
     public void insert(User user) {
@@ -43,7 +45,7 @@ public class UserDaoImpl implements IRepositoryUser, IReadUser {
  
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("$and", obj);
-        System.out.println("Sql query is?= " + whereQuery.toString());
+        System.out.println("Sql query is = " + whereQuery.toString());
  
         FindIterable cursor = col.find(whereQuery);
         for (Iterator it = cursor.iterator(); it.hasNext();) {

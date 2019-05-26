@@ -5,8 +5,10 @@
  */
 package com.unmsm.panamericanos.controller;
 
-import com.unmsm.panamericanos.dao.UserDaoImpl;
+import com.unmsm.panamericanos.dao.impl.UserDaoImpl;
 import com.unmsm.panamericanos.model.User;
+import com.unmsm.panamericanos.service.IUserService;
+import com.unmsm.panamericanos.service.impl.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author diego
  */
 public class UserServlet extends HttpServlet {
-    UserDaoImpl userdao = new UserDaoImpl();
+    private IUserService userService = new UserService();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +37,7 @@ public class UserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        System.out.println("Entro al servlet");
         
         switch(action) {
             case "login": login(request, response); break;
@@ -52,7 +55,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("message", "Please enter login email and password");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
-            User isUserFound = userdao.login(param1, param2);
+            User isUserFound = userService.login(param1, param2);
             if(isUserFound != null) {               
                 request.getSession().setAttribute("user", isUserFound);
                 request.getRequestDispatcher("/User/welcome.jsp").forward(request, response);
@@ -72,7 +75,7 @@ public class UserServlet extends HttpServlet {
         String photo = "";
         String message = "";
         try {
-            userdao.insert(new User(email, password, name, last_name, photo));
+            userService.insertUser(new User(email, password, name, last_name, photo));
             message = "registered user";
         } catch(Exception e) {
             message = "Error: " + e;

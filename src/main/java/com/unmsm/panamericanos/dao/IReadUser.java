@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unmsm.panamericanos.service;
+package com.unmsm.panamericanos.dao;
+
+import com.unmsm.panamericanos.model.User;
 
 /**
  *
  * @author diego
  */
-public class UserService {
-    
+public interface IReadUser {
+    public User login(String email, String password);
 }
